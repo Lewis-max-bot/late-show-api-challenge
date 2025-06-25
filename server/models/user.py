@@ -16,3 +16,9 @@ class User(db.Model):
 
     def __repr__(self):
         return f"<User {self.username}>"
+
+    @validates('username')
+    def validate_username(self, key, username):
+        if not username or len(username.strip()) == 0:
+            raise ValueError("Username must not be empty.")
+        return username
